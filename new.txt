@@ -1,0 +1,97 @@
+"""
+INSERT
+Добавление по одному:
+
+Первый вариант
+INSERT INTO publication (title, text, ...) VALUES (...); # sql запрос
+Publication.objects.create(title='...', text='...', ...)  # создание по одному
+
+Второй вариант
+pub = Publication(title='...', text='...', ...)
+pub.save()
+
+Добавление нескольких:
+Publication.objects.bulk_create([
+Publication(...),
+Publication(...),
+Publication(...)
+])
+"""
+
+'''SELECT
+SELECT * FROM publication;
+Publication.objects.all()
+
+
+SELECT title FROM publication;
+Publication.objects.only('title')  #Первый вариант
+
+SELECT title, text, status FROM publication;
+Publication.objects.only('title', 'text', 'status')
+Publication.objects.defer('user', 'created_at', 'updated_at') # Исключаем те поля, которые нам не нужны
+
+
+# Фильтрация
+SELECT * FROM publication WHERE ...;
+Publication.objects.filter(...)
+
+# Операции:
+SELECT * FROM publication WHERE id = 1;
+Publication.objects.filter(id=1)
+
+import datetime
+current = datetime.datetime.strptime('09-09-2021 12:52:46', '%d-%m-%Y &H:%M:%S')
+SLECT * FROM publication WHERE created_at > 09-09-2021 12:52:46
+Publication.objects.filter(created_at__gt=current) # > - gt
+
+">" -> gt
+"<" -> lt
+">=" -> gte
+"<=" -> lte
+"=" -> =
+"=" -> exact/iexact
+"IN" -> in
+"BETWEEN" -> range
+
+LIKE, ILIKE
+LIKE/ILIKE 'Samsung%' -> startswith/istartswith
+
+LIKE/ILIKE '%S21' -> endswith/iendswith
+
+LIKE/ILIKE '%something%' -> contains/icontains
+
+# сортировка
+
+# Select * From publication ORDER BY created_at ASC;
+
+# Select * From publication ORDER BY created_at DESC;
+
+# SELECT * FROM publication WHERE ... ORDER BY created_at;
+
+# LIMIT
+SELECT * FROM publication LIMIT 10;
+
+SELECT * FROM publication LIMIT 10 OFFSET 10;
+
+SELECT * FROM publication WHERE id=1
+Publication.objects.filter(id=1)
+
+получение одной записи
+SELECT * FROM publication WHERE id=1 LIMIT 1;
+Publication.objects.get(id=1)
+Publication.objects.filter(id=1).first()
+
+# UPDATE
+обновление всех записей
+UPDATE publication SET status='closed';
+Publication.objects.update(status='closed')
+
+обновление части записей
+UPDATE publication SET status='closed' WHERE status ='draft'
+
+
+обновление одной записи
+
+
+'''
+
